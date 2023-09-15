@@ -2,7 +2,11 @@ const express = require("express");
 const pool = require("./db");
 const app = express();
 const PORT = 5000;
+const cors = require("cors");
 
+app.use(cors({
+    origin: "http://localhost:3000",
+}))
 app.use(express.json());
 app.get("/", (req, res) => {
     res.send("Hello Express");
@@ -12,6 +16,7 @@ app.get("/", (req, res) => {
 app.get("/users", (req, res) => {
     pool.query("select * from users", (error, results) => {
         if (error) throw error;
+        // console.log("全権取得できました。");
         return res.status(200).json(results.rows);
     })
 });
@@ -27,6 +32,8 @@ app.get("/users/:id", (req, res) => {
 
 //ユーザーを追加する
 app.post("/users", (req, res) => {
+    console.log(req.body)
+    console.log(req.headers);
     const { name, email, age } = req.body;
     //ユーザーがすでに存在しているかを確認する
     pool.query("select s from users s where s.email = $1", [email], (error, results) => {
