@@ -32,8 +32,6 @@ app.get("/users/:id", (req, res) => {
 
 //ユーザーを追加する
 app.post("/users", (req, res) => {
-    console.log(req.body)
-    console.log(req.headers);
     const { name, email, age } = req.body;
     //ユーザーがすでに存在しているかを確認する
     pool.query("select s from users s where s.email = $1", [email], (error, results) => {
