@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import dbApi from '../api/getDB';
 
 const GetAll = () => {
@@ -99,6 +99,11 @@ const GetAll = () => {
         }
     }
 
+    //初回マウントされたときに全データを表示する
+    useEffect(()=>{
+        getAllData(); 
+    },[])
+
 
   return (
     <div>
@@ -118,18 +123,12 @@ const GetAll = () => {
         <div>
             <form action="" onSubmit={(e) => createNewDB(e)}>
             <button>新規追加</button>
-                <div>
                     <label htmlFor="">name</label>
                     <input type="text" value={newName} onChange={(e)=> changeName(e.target.value)}/>
-                </div>
-                <div>
                     <label htmlFor="">email</label>
                     <input type="text" value={newEmail} onChange={(e)=> changeEmail(e.target.value)}/>
-                </div>
-                <div>
                     <label htmlFor="">age</label>
                     <input type="text" value={newAge} onChange={(e)=> changeAge(e.target.value)}/>
-                </div>
             </form>
         </div>
         <br />
