@@ -42,12 +42,6 @@ const GetAll = () => {
             setNewName("");
             setNewEmail("");
             setNewAge("");
-            try {
-                const result2 = await dbApi.getAll();
-                SetData(result2.data);
-            } catch (err) {
-                alert(err);
-            }
         } catch (err) {
             alert(err);
         }
@@ -63,12 +57,6 @@ const GetAll = () => {
             const result = await dbApi.deleteDB(deleteID);
             console.log(result)
             setDeleteID("")
-            try{
-                const result2 = await dbApi.getAll();
-                SetData(result2.data);
-            } catch (err) {
-                alert(err);
-            }
         } catch (err) {
             alert(err);
         }
@@ -87,13 +75,6 @@ const GetAll = () => {
             const result = await dbApi.updateName(updateID, {name: updateName});
             setUpdateID("");
             setUpdateName("");
-            try {
-                const result2 = await dbApi.getAll();
-                console.log(result2.data);
-                SetData(result2.data);
-            } catch (err) {
-                alert(err);
-            }
         } catch (err) {
             alert(err);
         }
@@ -102,7 +83,7 @@ const GetAll = () => {
     //初回マウントされたときに全データを表示する
     useEffect(()=>{
         getAllData(); 
-    },[])
+    },[data])
 
 
   return (
